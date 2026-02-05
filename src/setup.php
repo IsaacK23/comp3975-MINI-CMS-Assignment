@@ -1,4 +1,7 @@
 <?php
+
+include("index_db_params.php");
+
 // 1. AUTO-CREATE DATABASE 
 mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS `$db_name` ");
 
