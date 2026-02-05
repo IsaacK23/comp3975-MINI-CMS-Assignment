@@ -12,4 +12,5 @@ if (!isset($_SESSION['authenticated'])) {
 </head>
 
 <h1>Hello World</h1>
+
 </html>
