@@ -11,6 +11,10 @@ if (!isset($_SESSION['authenticated'])) {
     <title>Document</title>
 </head>
 
-<h1>Hello World</h1>
+<h1>Text Editor</h1>
+
+<textarea id="textbox" name="textbox" rows="10" cols="50">
+</textarea>
+<input type="submit" value="Submit">
 
 </html>
