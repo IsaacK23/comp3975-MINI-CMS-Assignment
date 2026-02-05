@@ -1,8 +1,7 @@
 <?php 
 include("index_db_params.php");
 
-// 1. AUTO-CREATE DATABASE (Procedural Style)
-// We use mysqli_query instead of $conn->query to stay procedural
+// 1. AUTO-CREATE DATABASE 
 mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS `$db_name` ");
 
 // 2. Select the database now that we are sure it exists
