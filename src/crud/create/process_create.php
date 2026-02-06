@@ -1,10 +1,16 @@
 <?php
+
+if (!isset($_SESSION['authenticated'])) {
+    header("Location: ../../login.php");
+}
+
 if (isset($_POST['create'])) {
 
     include("../../index_db_params.php");
     include("../../utils.php");
 
     mysqli_select_db($conn, $db_name);
+    
 
     if ($conn !== FALSE) {
         extract($_POST);

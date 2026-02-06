@@ -1,6 +1,11 @@
 <?php 
-?>
 
+session_start();
+if (!isset($_SESSION['authenticated'])) {
+    header("Location: ../../login.php");
+    exit;
+}
+?>
 <form action="process_create.php" method="POST">
     <h1>Create New Texts</h1>
 
