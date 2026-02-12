@@ -33,16 +33,17 @@ if ($conn !== FALSE) {
         echo "<table width='100%' class='table table-striped'>\n";
         echo "<tr><th>Text</th>".
              "<th>&nbsp;</th></tr>\n";
-        while ($Row = mysqli_fetch_array($QueryResult, MYSQLI_NUM)) {
-             echo "<tr><td>{$Row[0]}</td>";
-             echo "<td>";
-             echo "<a class='btn btn-small btn-primary' href='/crud/display/display.php?id={$Row[0]}'>disp</a>";
-             echo "&nbsp;";
-             echo "<a class='btn btn-small btn-warning' href='/crud/update/update.php?id={$Row[0]}'>upd</a>";
-             echo "&nbsp;";
-             echo "<a class='btn btn-small btn-danger' href='/crud/delete/delete.php?id={$Row[0]}'>del</a>";
-             echo "</td></tr>\n";
-        };
+     while ($Row = mysqli_fetch_assoc($QueryResult)) {
+          echo "<tr>";
+          echo "<td>" . htmlspecialchars($Row['content']) . "</td>";
+          echo "<td>";
+          echo "<a class='btn btn-small btn-primary' href='crud/display/display.php?id={$Row['id']}'>disp</a>";
+          echo "&nbsp;";
+          echo "<a class='btn btn-small btn-warning' href='crud/update/update.php?id={$Row['id']}'>upd</a>";
+          echo "&nbsp;";
+          echo "<a class='btn btn-small btn-danger' href='crud/delete/delete.php?id={$Row['id']}'>del</a>";
+          echo "</td></tr>\n";
+     };
         echo "</table>\n";
 
         echo "<p>Your query returned the above "
