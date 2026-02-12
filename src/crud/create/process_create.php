@@ -1,7 +1,8 @@
 <?php
-
+session_start();
 if (!isset($_SESSION['authenticated'])) {
     header("Location: ../../login.php");
+    exit;
 }
 
 if (isset($_POST['create'])) {
@@ -17,13 +18,10 @@ if (isset($_POST['create'])) {
 
         $Text = sanitize_input($Text);
 
-        $sql = "INSERT INTO Articles (Content) VALUES ";
-        // FIX 1: Added a fifth question mark for the Email column
-        $sql .= "(?)";
+        $sql = "INSERT INTO Articles (content) VALUES (?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
 
-            // FIX 2: Correctly matches 5 strings ("sssss") to 5 variables
             mysqli_stmt_bind_param($stmt, "s", $Text);
 
             $exec = mysqli_stmt_execute($stmt);
