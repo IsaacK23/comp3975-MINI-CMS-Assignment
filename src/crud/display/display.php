@@ -50,7 +50,7 @@ if ($article === null) {
     <?php echo htmlspecialchars($article['content']); ?>
 </div>
 <p>
-    <a href="../update/update.php?id=<?php echo htmlspecialchars($article['id']); ?>" class="btn btn-small btn-warning">Update</a>
+    <a href="../update/update.php?id=<?php echo htmlspecialchars($article['id']); ?>" class="btn btn-small btn-warning">Edit</a>
     &nbsp;
     <a href="../delete/delete.php?id=<?php echo htmlspecialchars($article['id']); ?>" class="btn btn-small btn-danger">Delete</a>
 </p>
