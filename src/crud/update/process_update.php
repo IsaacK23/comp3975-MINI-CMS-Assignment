@@ -16,7 +16,7 @@ if (isset($_POST['update'])) {
         extract($_POST);
 
         $id = isset($id) && is_numeric($id) ? (int) $id : 0;
-        $Text = sanitize_input($Text);
+        $Text = sanitize_html($Text);
 
         if ($id > 0) {
             $sql = "UPDATE Articles SET content = ? WHERE id = ?";

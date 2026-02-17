@@ -11,12 +11,11 @@ if (isset($_POST['create'])) {
     include("../../utils.php");
 
     mysqli_select_db($conn, $db_name);
-    
 
     if ($conn !== FALSE) {
         extract($_POST);
 
-        $Text = sanitize_input($Text);
+        $Text = sanitize_html($Text);
 
         $sql = "INSERT INTO Articles (content) VALUES (?)";
 

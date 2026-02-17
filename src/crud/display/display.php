@@ -46,8 +46,8 @@ if ($article === null) {
 <h1>Article</h1>
 <p><a href="../../index.php" class="btn btn-small btn-primary">Back to list</a></p>
 <p><strong>Created:</strong> <?php echo htmlspecialchars($article['created_at']); ?></p>
-<div>
-    <?php echo htmlspecialchars($article['content']); ?>
+<div class="article-content">
+    <?php echo $article['content']; ?>
 </div>
 <p>
     <a href="../update/update.php?id=<?php echo htmlspecialchars($article['id']); ?>" class="btn btn-small btn-warning">Edit</a>

@@ -35,7 +35,8 @@ if ($conn !== FALSE) {
              "<th>&nbsp;</th></tr>\n";
      while ($Row = mysqli_fetch_assoc($QueryResult)) {
           echo "<tr>";
-          echo "<td>" . htmlspecialchars($Row['content']) . "</td>";
+          // TO-DO: Consider showing rendered HTML ($Row['content']) instead of plain text for Quill formatting; currently strip_tags for compact list view.
+          echo "<td>" . htmlspecialchars(strip_tags($Row['content'])) . "</td>";
           echo "<td>";
           echo "<a class='btn btn-small btn-primary' href='crud/display/display.php?id={$Row['id']}'>disp</a>";
           echo "&nbsp;";

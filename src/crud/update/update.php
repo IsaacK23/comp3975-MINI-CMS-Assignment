@@ -34,17 +34,41 @@ if ($article === null) {
     header("Location: ../../index.php");
     exit;
 }
+
 ?>
-<form action="process_update.php" method="POST">
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<form action="process_update.php" method="POST" id="update-form">
     <h1>Edit Text</h1>
 
     <input type="hidden" name="id" value="<?php echo htmlspecialchars($article['id']); ?>" />
 
-    <label for="textbox">Text Editor:</label>
+    <label for="editor">Text Editor:</label>
     <br><br>
 
-    <textarea id="textbox" name="Text" rows="14" cols="50"><?php echo htmlspecialchars($article['content']); ?></textarea>
+    <div id="editor" style="min-height: 200px;"></div>
+    <input type="hidden" name="Text" id="text-input" />
+
     <br><br>
 
     <input type="submit" value="Update" name="update" class="btn btn-warning" />
 </form>
+
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+(function() {
+    var quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Write anything'
+    });
+
+    var initialContent = <?php echo json_encode($article['content']); ?>;
+    if (initialContent) {
+        quill.root.innerHTML = initialContent;
+    }
+
+    document.getElementById('update-form').onsubmit = function() {
+        document.getElementById('text-input').value = quill.root.innerHTML;
+        return true;
+    };
+})();
+</script>
