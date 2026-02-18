@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 
 include("index_db_params.php");
 
@@ -25,7 +25,7 @@ if (!isset($_SESSION['authenticated'])) {
 </body>
 
 </html>
-
+<!-- TODO make this formatted better. --> 
 <?php 
 if ($conn !== FALSE) {
     $SQLstring = "select * from Articles";

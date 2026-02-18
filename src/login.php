@@ -17,7 +17,7 @@ include("index_db_params.php");
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
         <br>
-        <input type="submit" value="Login">
+        <input type="submit" value="Login" name="login" class="btn btn-success" />
     </form>
     <p>
         <a href="register.php">Register</a>

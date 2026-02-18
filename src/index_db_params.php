@@ -22,7 +22,7 @@ mysqli_select_db($conn, $db_name);
 // Create first table 
 $tableSql = "CREATE TABLE IF NOT EXISTS Users (
     Username VARCHAR(20) PRIMARY KEY,
-    Password VARCHAR(50) NOT NULL
+    Password VARCHAR(255) NOT NULL
 )";
 mysqli_query($conn, $tableSql);
 
