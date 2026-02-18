@@ -29,3 +29,5 @@ php -S localhost:8888
 - React  
 
 ### Back-End
+- PHP
+- MYSQL
