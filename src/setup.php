@@ -11,7 +11,7 @@ mysqli_select_db($conn, $db_name);
 // Create first table 
 $tableSql = "CREATE TABLE IF NOT EXISTS Users (
     Username VARCHAR(20) PRIMARY KEY,
-    Password VARCHAR(50) NOT NULL
+    Password VARCHAR(255) NOT NULL
 )";
 mysqli_query($conn, $tableSql);
 
@@ -29,9 +29,11 @@ $checkEmpty = mysqli_query($conn, "SELECT COUNT(*) as total FROM Users");
 $data = mysqli_fetch_assoc($checkEmpty);
 
 if ($data['total'] == 0) {
-    // Insert seed data into CMSDB
-    $conn->query("INSERT INTO Users (Username, Password) VALUES 
-            ('a@a.a', 'P@$$w0rd')
-            ");
+    $hashedpw = password_hash('P@$$w0rd', PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
+    $stmt->bind_param("ss", $username, $hashedpw);
+    $username = 'a@a.a';
+    $stmt->execute();
+    $stmt->close();
 }
 ?>
