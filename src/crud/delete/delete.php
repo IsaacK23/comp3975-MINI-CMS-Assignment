@@ -12,14 +12,29 @@ if ($id === null || !is_numeric($id)) {
     exit;
 }
 ?>
-<form action="process_delete.php" method="POST">
-    <h1>Delete Article</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Article</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div class="wrapper" style="max-width: 500px;">
+        <h2>Confirm Delete</h2>
+        
+        <p class="text-center my-4">Are you sure you want to delete this article? This action cannot be undone.</p>
 
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>" />
+        <form action="process_delete.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>" />
 
-    <p>Are you sure you want to delete this article?</p>
-
-    <input type="submit" value="Cancel" name="cancel" class="btn btn-small btn-primary" formaction="../../index.php" formmethod="get" />
-    &nbsp;
-    <input type="submit" value="Delete" name="delete" class="btn btn-small btn-danger" />
-</form>
+            <div class="d-flex justify-content-between">
+                <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+                
+                <input type="submit" value="Delete Permanently" name="delete" class="btn" style="background-color: #931621; color: white;" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>

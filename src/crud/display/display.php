@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (!isset($_SESSION['authenticated'])) {
     header("Location: ../../login.php");
@@ -39,20 +38,27 @@ if ($article === null) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Article</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-<h1>Article</h1>
-<p><a href="../../index.php" class="btn btn-small btn-primary">Back to list</a></p>
-<p><strong>Created:</strong> <?php echo htmlspecialchars($article['created_at']); ?></p>
-<div class="article-content">
-    <?php echo $article['content']; ?>
-</div>
-<p>
-    <a href="../update/update.php?id=<?php echo htmlspecialchars($article['id']); ?>" class="btn btn-small btn-warning">Edit</a>
-    &nbsp;
-    <a href="../delete/delete.php?id=<?php echo htmlspecialchars($article['id']); ?>" class="btn btn-small btn-danger">Delete</a>
-</p>
+    <div class="wrapper" style="max-width: 500px;">
+        <h2>Article Details</h2>
+        
+        <p><strong>Created:</strong> <?php echo htmlspecialchars($article['created_at']); ?></p>
+        
+        <div class="article-content mb-4">
+            <?php echo $article['content']; ?>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="../../index.php" class="btn btn-secondary">Back</a>
+            <div>
+                <a href="../update/update.php?id=<?php echo $article['id']; ?>" class="btn" style="background-color: #28464B; color: white;">Edit</a>
+                <a href="../delete/delete.php?id=<?php echo $article['id']; ?>" class="btn" style="background-color: #931621; color: white;">Delete</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

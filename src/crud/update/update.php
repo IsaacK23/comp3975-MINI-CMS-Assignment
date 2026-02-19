@@ -36,22 +36,35 @@ if ($article === null) {
 }
 
 ?>
-<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
-<form action="process_update.php" method="POST" id="update-form">
-    <h1>Edit Text</h1>
 
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($article['id']); ?>" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Article</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="container">
 
-    <label for="editor">Text Editor:</label>
-    <br><br>
+    <div class="wrapper">
+        <h2>Edit Text</h2>
+        
+        <form action="process_update.php" method="POST" id="update-form">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($article['id']); ?>" />
+            
+            <div class="form-group">
+                <div id="editor"></div>
+                <input type="hidden" name="Text" id="text-input" />
+            </div>
 
-    <div id="editor" style="min-height: 200px;"></div>
-    <input type="hidden" name="Text" id="text-input" />
-
-    <br><br>
-
-    <input type="submit" value="Update" name="update" class="btn btn-warning" />
-</form>
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="Update Article" name="update" class="btn" style="background-color: rgb(71, 184, 157); color: white;" />
+            </div>
+        </form>
+    </div>
 
 <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 <script>
