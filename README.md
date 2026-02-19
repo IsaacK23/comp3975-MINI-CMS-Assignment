@@ -63,6 +63,8 @@ MINI-CMS/
 ├── docker-compose.yml
 ├── README.md
 └── src
+    ├── css 
+        ├── style.css
     ├── crud
     │   ├── create
     │   │   ├── create.php
