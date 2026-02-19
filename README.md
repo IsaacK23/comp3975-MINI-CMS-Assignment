@@ -25,7 +25,7 @@ Then run the commands again from the first part.
 
 After it has successfully started, set up the database by running the setup.php file
 
-    php setup.php
+    php src/setup.php
 
 
 ### 3. Start a local instance
@@ -45,6 +45,7 @@ Visit: http://localhost:8888 in your browser.
 
 ## 2. Project Description
 An article hosting app with a PHP backend using MariaDB as storage.
+
 ## 3. Technologies Used
 
 ### Front-End  

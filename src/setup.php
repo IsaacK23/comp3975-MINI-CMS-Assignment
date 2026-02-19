@@ -20,8 +20,8 @@ $username = 'a@a.a';
 $stmt->bind_param("ss", $username, $hashedpw);
 
 if ($stmt->execute()) {
-    echo "<h1>Table Fixed!</h1>";
-    echo "<p>User <strong>a@a.a</strong> created with a secure 60-character hash.</p>";
+    echo "Table created. ";
+    echo "User a@a.a added with hashed password.";
 } else {
     echo "Error: " . $stmt->error;
 }
