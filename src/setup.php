@@ -1,39 +1,33 @@
 <?php
-
 include("index_db_params.php");
 
-// 1. AUTO-CREATE DATABASE 
-mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS `$db_name` ");
-
-// 2. Select the database now that we are sure it exists
+// 1. Select the DB
 mysqli_select_db($conn, $db_name);
 
-// Create first table 
+// 2. Fix the table structure (Using VARCHAR(255) for the hash)
 $tableSql = "CREATE TABLE IF NOT EXISTS Users (
-    Username VARCHAR(20) PRIMARY KEY,
+    Username VARCHAR(50) PRIMARY KEY,
     Password VARCHAR(255) NOT NULL
 )";
 mysqli_query($conn, $tableSql);
 
-// create an articles table if it not exists 
-$articleTable = "CREATE TABLE IF NOT EXISTS Articles ( 
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )";
-mysqli_query(mysql: $conn, query: $articleTable);
+// 3. ALTER the table just in case it already exists with the old, small size
+mysqli_query($conn, "ALTER TABLE Users MODIFY Password VARCHAR(255) NOT NULL");
 
+// 4. Wipe and Re-seed
+mysqli_query($conn, "TRUNCATE TABLE Users"); 
 
-// 3. AUTO-INSERT SAMPLE DATA (Only if table is empty)
-$checkEmpty = mysqli_query($conn, "SELECT COUNT(*) as total FROM Users");
-$data = mysqli_fetch_assoc($checkEmpty);
+$hashedpw = password_hash('P@$$w0rd', PASSWORD_DEFAULT);
+$stmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
 
-if ($data['total'] == 0) {
-    $hashedpw = password_hash('P@$$w0rd', PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $hashedpw);
-    $username = 'a@a.a';
-    $stmt->execute();
-    $stmt->close();
+$username = 'a@a.a'; 
+$stmt->bind_param("ss", $username, $hashedpw);
+
+if ($stmt->execute()) {
+    echo "<h1>Table Fixed!</h1>";
+    echo "<p>User <strong>a@a.a</strong> created with a secure 60-character hash.</p>";
+} else {
+    echo "Error: " . $stmt->error;
 }
+$stmt->close();
 ?>
