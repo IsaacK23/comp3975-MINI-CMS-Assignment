@@ -16,7 +16,7 @@ mysqli_select_db($conn, $db_name);
 
 $article = null;
 if ($conn !== FALSE) {
-    $sql = "SELECT id, content, created_at FROM Articles WHERE id = ?";
+    $sql = "SELECT id, title, content, created_at FROM Articles WHERE id = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $id);
         mysqli_stmt_execute($stmt);
@@ -44,7 +44,7 @@ if ($article === null) {
 </head>
 <body>
     <div class="wrapper" style="max-width: 500px;">
-        <h2>Article Details</h2>
+        <h2><?php echo htmlspecialchars($article['title']); ?></h2>
         
         <p><strong>Created:</strong> <?php echo htmlspecialchars($article['created_at']); ?></p>
         

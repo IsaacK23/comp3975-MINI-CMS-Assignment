@@ -11,19 +11,19 @@ if (isset($_POST['update'])) {
     include("../../utils.php");
 
     mysqli_select_db($conn, $db_name);
+    $exec = false;
 
     if ($conn !== FALSE) {
-        extract($_POST);
+        $id = isset($_POST['id']) && is_numeric($_POST['id']) ? (int) $_POST['id'] : 0;
+        $title = isset($_POST['title']) ? sanitize_text($_POST['title']) : '';
+        $text = isset($_POST['Text']) ? sanitize_html($_POST['Text']) : '';
 
-        $id = isset($id) && is_numeric($id) ? (int) $id : 0;
-        $Text = sanitize_html($Text);
-
-        if ($id > 0) {
-            $sql = "UPDATE Articles SET content = ? WHERE id = ?";
+        if ($id > 0 && $title !== '' && $text !== '') {
+            $sql = "UPDATE Articles SET title = ?, content = ? WHERE id = ?";
 
             if ($stmt = mysqli_prepare($conn, $sql)) {
 
-                mysqli_stmt_bind_param($stmt, "si", $Text, $id);
+                mysqli_stmt_bind_param($stmt, "ssi", $title, $text, $id);
 
                 $exec = mysqli_stmt_execute($stmt);
 
@@ -39,5 +39,9 @@ if (isset($_POST['update'])) {
     mysqli_close($conn);
 }
 
-header('Location: ../../index.php');
-exit;
+if ($exec === true) {
+    header('Location: ../../index.php');
+    exit;
+}
+
+echo "Error updating article. Title and content are required.";

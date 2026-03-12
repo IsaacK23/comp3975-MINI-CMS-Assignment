@@ -17,7 +17,7 @@ mysqli_select_db($conn, $db_name);
 
 $article = null;
 if ($conn !== FALSE) {
-    $sql = "SELECT id, content FROM Articles WHERE id = ?";
+    $sql = "SELECT id, title, content FROM Articles WHERE id = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $id);
         mysqli_stmt_execute($stmt);
@@ -55,6 +55,10 @@ if ($article === null) {
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($article['id']); ?>" />
             
             <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" class="form-control mb-3" maxlength="255" value="<?php echo htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?>" required />
+
+                <label for="editor">Content</label>
                 <div id="editor"></div>
                 <input type="hidden" name="Text" id="text-input" />
             </div>

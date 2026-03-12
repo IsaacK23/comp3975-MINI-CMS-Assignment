@@ -25,18 +25,21 @@ if (!isset($_SESSION['authenticated'])) {
 if ($conn !== FALSE) {
     mysqli_select_db($conn, $db_name);
     
-    $SQLstring = "SELECT id, content FROM Articles"; 
+    $SQLstring = "SELECT id, title, content FROM Articles"; 
     
     if ($QueryResult = @mysqli_query($conn, $SQLstring)) {
         echo "<table width='100%' class='table table-striped'>\n";
         echo "<thead>";
-        echo "<tr><th>Text</th>";
+           echo "<tr><th>Article</th>";
         echo "<th class='text-right'>Actions</th></tr>\n";
         echo "</thead><tbody>";
 
         while ($Row = mysqli_fetch_assoc($QueryResult)) {
              echo "<tr>";
-             echo "<td>" . $Row['content'] . "</td>";
+               echo "<td>";
+               echo "<div class='article-list-title'>" . htmlspecialchars($Row['title']) . "</div>";
+               echo "<div class='article-list-content'>" . $Row['content'] . "</div>";
+               echo "</td>";
              echo "<td class='text-right'>";
              echo "<a class='btn btn-sm' style='background-color: #2C8C99; color: white;' href='crud/display/display.php?id={$Row['id']}'>display</a>";             echo "&nbsp;";
              echo "<a class='btn btn-sm' style='background-color: #28464B; color: white;' href='crud/update/update.php?id={$Row['id']}'>edit</a>";
