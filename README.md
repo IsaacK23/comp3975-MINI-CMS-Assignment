@@ -19,6 +19,7 @@ The PHP app and MariaDB database are both started by Compose. The app creates th
 
 ## 2. Project Description
 An article hosting app with a PHP backend using MariaDB as storage.
+
 ## 3. Technologies Used
 
 ### Front-End  
