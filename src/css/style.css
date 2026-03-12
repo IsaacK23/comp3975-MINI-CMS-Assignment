@@ -31,3 +31,18 @@ h2 {
     background: white;
 
 }
+
+.article-list-title {
+    color: #28464B;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.article-list-content {
+    color: #1f2d3d;
+}
+
+.article-list-content p:last-child {
+    margin-bottom: 0;
+}

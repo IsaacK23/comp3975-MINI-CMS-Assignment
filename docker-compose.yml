@@ -1,18 +1,37 @@
-version: "3.8"
-
 services:
   db:
     image: mariadb:10.7.3
-    container_name: mariadb
     environment:
-      MYSQL_DATABASE: school
-      MYSQL_USER: principal
+      MYSQL_DATABASE: CMSDB
+      MYSQL_USER: cms_user
       MYSQL_PASSWORD: secret
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    ports:
-      - "3333:3306"
+      MYSQL_ROOT_PASSWORD: rootsecret
     volumes:
       - db:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MYSQL_DBHOST: db
+      MYSQL_DBPORT: 3306
+      MYSQL_DBUSER: cms_user
+      MYSQL_DBPASS: secret
+      MYSQL_DBNAME: CMSDB
+    ports:
+      - "8888:80"
+    volumes:
+      - ./src:/var/www/html
     restart: always
 
 volumes:

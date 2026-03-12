@@ -24,10 +24,19 @@ mysqli_query($conn, $userTable);
 // Articles table 
 $articleTable = "CREATE TABLE IF NOT EXISTS Articles ( 
     id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL DEFAULT 'Untitled',
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 mysqli_query($conn, $articleTable);
+
+$titleColumnCheck = mysqli_query($conn, "SHOW COLUMNS FROM Articles LIKE 'title'");
+if ($titleColumnCheck && mysqli_num_rows($titleColumnCheck) === 0) {
+    mysqli_query($conn, "ALTER TABLE Articles ADD COLUMN title VARCHAR(255) NOT NULL DEFAULT 'Untitled' AFTER id");
+}
+if ($titleColumnCheck) {
+    mysqli_free_result($titleColumnCheck);
+}
 
 $checkUsers = mysqli_query($conn, "SELECT COUNT(*) as total FROM Users");
 $userData = mysqli_fetch_assoc($checkUsers);

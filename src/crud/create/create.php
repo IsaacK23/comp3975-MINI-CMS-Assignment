@@ -21,6 +21,10 @@ if (!isset($_SESSION['authenticated'])) {
         
         <form action="process_create.php" method="POST" id="create-form">
             <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" class="form-control mb-3" maxlength="255" required />
+
+                <label for="editor">Content</label>
                 <div id="editor"></div>
                 <input type="hidden" name="Text" id="text-input" />
             </div>

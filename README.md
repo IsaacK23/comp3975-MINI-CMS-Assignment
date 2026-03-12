@@ -2,41 +2,15 @@
 
 ## 1. Setup
 
-Run the server first by entering these commands in the terminal:
+Start the full app with Docker Compose:
 
-### 1. Start the database
+    docker compose up --build
 
-Create and start a MariaDB container in docker.
+Then open:
 
-    docker run -d \
-    --name mariadb \
-    -p 3333:3306 \
-    -e MYSQL_ROOT_PASSWORD=secret \
-    -e MYSQL_DATABASE=CMSDB \
-    mariadb:10.7.3
+    http://localhost:8888
 
-NOTE: if a container is already running on mariadb then remove the old container with the command: 
-
-    docker rm -f mariadb
-
-Then run the commands again from the first part. 
-
-### 2. Seed the database
-
-After it has successfully started, set up the database by running the setup.php file
-
-    php setup.php
-
-
-### 3. Start a local instance
-
-Start your localhost from the src/ file.
-
-    php -S localhost:8888 -t src/
-
-### 4. Open the app
-
-Visit: http://localhost:8888 in your browser.
+The PHP app and MariaDB database are both started by Compose. The app creates the database tables automatically on first load.
 
 #### Default credentials:
 

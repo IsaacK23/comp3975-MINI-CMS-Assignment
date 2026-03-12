@@ -7,6 +7,12 @@ function sanitize_input($data) {
     return $data;
 }
 
+function sanitize_text($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    return strip_tags($data);
+}
+
 // For WYSIWYG HTML content: allow safe tags, strip scripts to prevent XSS.
 function sanitize_html($data) {
     $data = trim($data);

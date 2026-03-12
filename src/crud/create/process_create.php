@@ -14,14 +14,13 @@ if (isset($_POST['create'])) {
     if ($conn !== FALSE) {
         mysqli_select_db($conn, $db_name);
 
-        extract($_POST);
+        $title = isset($_POST['title']) ? sanitize_text($_POST['title']) : '';
+        $text = isset($_POST['Text']) ? sanitize_html($_POST['Text']) : '';
 
-        $Text = sanitize_html($Text);
+        $sql = "INSERT INTO Articles (title, content) VALUES (?, ?)";
 
-        $sql = "INSERT INTO Articles (content) VALUES (?)";
-
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            mysqli_stmt_bind_param($stmt, "s", $Text);
+        if ($title !== '' && $text !== '' && $stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ss", $title, $text);
             $exec = mysqli_stmt_execute($stmt);
 
             if ($exec === false) {
@@ -37,6 +36,6 @@ if (isset($_POST['create'])) {
         header('Location: ../../index.php');
         exit;
     } else {
-        echo "Error saving article. Check the error log.";
+        echo "Error saving article. Title and content are required.";
     }
 }
